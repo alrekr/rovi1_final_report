@@ -1,0 +1,73 @@
+%!TEX root = mainfile.tex
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{color}
+\usepackage[numbers]{natbib}
+
+\usepackage{gensymb}
+\usepackage{textcomp}
+\usepackage{fancyvrb}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[toc,page]{appendix}
+\usepackage{multicol}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{tipa}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.JPG}
+\usepackage{float}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usepackage{anyfontsize}
+\usetikzlibrary{shapes.geometric, arrows} %for flowchart:
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm,
+minimum height=1cm,text centered, draw=black, fill=red!30]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110,
+minimum width=3cm, minimum height=1cm, text centered, text width=3.3cm,
+draw=black, fill=blue!30]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm,
+text centered, text width=7cm, draw=black, fill=orange!30]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm,
+text centered, text width=3cm, draw=black, fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\usepackage{enumitem}
+\usepackage{lastpage}
+\usepackage{geometry}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage[binary-units = true]{siunitx}
+\usepackage{threeparttable}
+\usepackage{multirow}
+\usepackage{pdfpages}
+\usepackage{caption}
+\captionsetup{labelfont=bf}
+\usepackage{url}
+\usepackage[section]{placeins}
+\usepackage[bottom]{footmisc}
+\usepackage{eso-pic}
+\usepackage{wrapfig}
+\usepackage{blindtext}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{tablefootnote}
+\graphicspath{{imgs/}}
+
+\newlength{\wideitemsep}
+\setlength{\wideitemsep}{.5\itemsep}
+\addtolength{\wideitemsep}{-7pt}
+
+\usepackage{varioref}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\usepackage[toc,page]{appendix}
+\newcommand{\nocontentsline}[3]{}
+\newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}
