@@ -25,6 +25,16 @@ Then, when each new image is first assigned to the object and the center is extr
 
 Using that approach, the center of the image as well as the four corners are available.
 
+Tests showed that this method is somewhat slow. On the same test machine as earlier,
+the metod could reach \SI{6}{\fps} with the easy sequence and barely \SI{3}{\fps} with the hard sequence.
+SURF/RANSAC is obviously not a fast way to extract features, although it can handle vastly more complicated markers than circle detection.
+
+The RANSAC/SURF method finds the marker in both the easy and the hard sequence.
+The center point is not in the same position in all images, but is within 20 pixels.
+For tracking purposes this is sufficient; for interaction purposes (i.e.\ real world implementation) it might not be.
+When parts of the image goes outside the camera frame, the problem gets more pronounced.
+
+
 It should now be clear that even though the two feature extractors are very different in their construction and method,
 they come to much the same result; four points in a quadrilateral and a point in the center of mass.
 Both methods are called the same way; instantiate the class, \verb|assign(Mat)| an image and \verb|extract()| the features wanted.
