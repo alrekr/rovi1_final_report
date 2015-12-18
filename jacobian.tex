@@ -1,0 +1,44 @@
+%!TEX root = mainfile.tex
+\subsection{Inverse kinematics}
+In order to use the image information, it is necessary to perform inverse kinematics.
+The end result should be
+
+\begin{align}
+\mathrm{\textbf{dq}}=\left[\textbf{Z}_\mathit{image}(\textbf{q})\right]^T\textbf{y} % chktex 3
+\end{align}
+
+Going backwards, $\textbf{Z}_\mathit{image}(\textbf{q}) = \textbf{J}_\mathit{image}\textbf{S}(\textbf{q})\textbf{J}(\textbf{q})$. Here,
+
+\begin{align}
+    \textbf{J}_\mathit{image}&=
+    \left[
+        \begin{matrix}
+            -\frac{f}{z} & 0            & \frac{u}{z} & \frac{uv}{f}      & -\frac{f^2+u^2}{f} & v \\
+            0            & -\frac{f}{z} & \frac{v}{z} & \frac{f^2+v^2}{f} & -\frac{uv}{f}      & -u
+        \end{matrix}
+    \right]\label{eq:J1}\\
+    \textbf{S}(\textbf{q})&=\left[
+    \begin{matrix}
+        \left[\textbf{R}_\mathit{base}^\mathit{tool}(\textbf{q})\right]^T & | & 0 \\ % chktex 3
+        -- -- & & -- -- \\
+        0 & | & \left[\textbf{R}_\mathit{base}^\mathit{tool}(\textbf{q})\right]^T % chktex 3
+    \end{matrix}
+    \right]\label{eq:J2}\\
+    \textbf{J}(\textbf{q})&=\left[
+    \begin{matrix}
+        \textbf{A}(\textbf{q})\\
+        ------\\
+        \textbf{B}(\textbf{q})
+    \end{matrix}
+    \right]\label{eq:J3}
+\end{align}
+
+where, for Equation~\ref{eq:J1}, $f$ is the camera focal length and
+
+\begin{align}
+u &= \frac{fx}{z}\nonumber \\
+v &= \frac{fy}{z}
+\end{align}
+
+Equations~\ref{eq:J2} and~\ref{eq:J3} are further explored in~\cite{robbook}.
+Suffice to say, they are based on the robot's position $\textbf{q}$ and state vector $\textbf{q}$ among others.

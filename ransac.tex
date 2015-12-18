@@ -1,7 +1,33 @@
 %!TEX root = mainfile.tex
-\section{RANSAC and \textsc{SURF}}
+\subsection{RANSAC and \textsc{SURF}}
 \include{ransac_flowchart}
-Speeded up robust features, \textsc{SURF}, is faster than \textsc{SIFT} according to its authors, thus it is better in a time-critical implementation.
+Speeded up robust features, \textsc{SURF}, is faster than \textsc{SIFT} according to its authors\cite{WikiSURF}, thus it is better in a time-critical implementation.
 It is also claimed to be more robust that \textsc{SIFT}, and so it is a better choice than SIFT.\@
 There appear to be no difference in how to implement either in OpenCV.\@
 The process for finding the marker in an image is shown in Figure~\vref{fig:corny_flowchart}.
+
+First, when the object of the \verb|Ransac| class is constructed the Corny marker is loaded and preliminary computations are done.
+Then, when each new image is first assigned to the object and the center is extracted, the following happens:
+\begin{enumerate}
+    \item Find keypoints are found and descriptors computed
+    \item Match descriptors for the true marker and the image using Flann matcherd
+    \item Calculate distance between matches
+    \begin{enumerate}
+    \item Throw away all matches which are less than three times minimum distance
+    \end{enumerate}
+    \item Get coordinates for good matches
+    \item Calculate homography based on coordinates
+    \item Find corners in true marker
+    \item Perform perspective transform
+    \item Find corners in marker in image
+    \item Find center of the image using the average of the corners
+\end{enumerate}
+
+Using that approach, the center of the image as well as the four corners are available.
+
+It should now be clear that even though the two feature extractors are very different in their construction and method,
+they come to much the same result; four points in a quadrilateral and a point in the center of mass.
+Both methods are called the same way; instantiate the class, \verb|assign(Mat)| an image and \verb|extract()| the features wanted.
+
+To extract the center point: \verb|Point2f p = class.extract();|.
+To extract three points: \verb|Point2f p1, p2, p3; class.extract(p1, p2, p3);|.
