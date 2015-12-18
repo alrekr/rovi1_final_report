@@ -1,5 +1,10 @@
 %!TEX root = mainfile.tex
 
 The implemented visual feature extractors worked in every single test case.
+The circle marker is identified down to individual circles, and a total of five unique points are known.
+This is done faster than \SI{30}{\fps} or faster than \SI{34}{\milli\second} per frame, which is reasonably fast.
+Finding the corny marker takes a while longer;
+at 6 FPS (\SI{167}{\milli\second} per frame) for the easy sequence and just below 3 FPS (\SI{333}{\milli\second}) for the hard sequence,
+the method is not suited for time-sensitive implementations.
 
 However, due to health problems relating one of the group members, the actual visual servoing was not implemented.
