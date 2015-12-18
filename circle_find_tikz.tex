@@ -1,0 +1,35 @@
+%!TEX root = mainfile.tex
+\begin{figure}
+\centering
+\begin{tikzpicture}[node distance=2cm,scale=0.6, every node/.style={transform shape}]
+    \node (start) [startstop] {Start};
+    \node (imgin) [io, below of=start] {Image in};
+    \node (prepimg) [process, below of=imgin] {Grayscale, adaptive threshold, open, threshold, find contours};
+    \node (contproc) [process, below of=prepimg] {Get new contour};
+    \node (decarea) [decision, below of=contproc, yshift=-1.6cm] {Is area of contour > 1000?};
+    \node (areaproc) [process, below of=decarea, yshift=-1.6cm] {Store contour};
+    \node (decmore) [decision, below of=areaproc, yshift=-1.5cm] {More contours?};
+    \node (sort) [process, right of=imgin, xshift=8cm] {Sort contours based on area-perimeter ratio};
+    \node (takefour) [process, below of=sort] {Take four best circles based on ratio};
+    \node (takered) [process, below of=takefour] {Take most red element as red circle};
+    \node (takeopposite) [process, below of=takered, yshift=-.25cm] {Take contour with biggest center-to-center distance to red circle as opposite of red};
+    \node (takeothers) [process, below of=takeopposite, yshift=-.25cm] {Take other two, assign based on algorithm};
+    \node (stop) [startstop, below of=takeothers] {Stop};
+    \draw [arrow] (start) -- (imgin);
+    \draw [arrow] (imgin) -- (prepimg);
+    \draw [arrow] (prepimg) -- (contproc);
+    \draw [arrow] (contproc) -- (decarea);
+    \draw [arrow] (decarea) -| node[anchor=north east] {No} ([xshift=0.50cm]contproc.south east) |- (contproc);
+    \draw [arrow] (decarea) -- node[anchor=east] {Yes} (areaproc);
+    \draw [arrow] (areaproc) -- (decmore);
+    \draw [arrow] (decmore) -| node[anchor=north west] {Yes} ([xshift=-0.50cm]contproc.south west) |- (contproc);
+    \draw [arrow] (decmore) -| node[anchor=north east] {No} ([xshift=1.5cm]contproc.south east) |- (sort);
+    \draw [arrow] (sort) -- (takefour);
+    \draw [arrow] (takefour) -- (takered);
+    \draw [arrow] (takered) -- (takeopposite);
+    \draw [arrow] (takeopposite) -- (takeothers);
+    \draw [arrow] (takeothers) -- (stop);
+\end{tikzpicture}
+\caption{Loading of image and detection and identification of circles.}
+\label{fig:circles_flowchart}
+\end{figure}
