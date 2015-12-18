@@ -68,7 +68,7 @@ But it works.
 \end{figure}
 
 After thresholding, the image is first \verb|erode|d then \verb|dilate|d (opened) in order to remove noise and to separate the circles from the border of the plate.
-Lastly in the preparation process the image is thresholded, as the adaptive threshold actually offsets the expected white color into a more gray color.
+Then, the image is thresholded, as the adaptive threshold actually offsets the expected white color into a more gray color.
 
 After the preparation, \verb|findContours| is called.
 The contours are first filtered after area.
@@ -77,6 +77,14 @@ Then a ratio, calculated after the formula in Equation~\vref{eq:circle_ratio} as
     \mathit{ratio} = \frac{4\times\pi\times\mathit{area}}{\mathit{perimeter}^2}
 \end{align}
 This ratio is used to sort the contours in ascending order; lower ratios before higher ratios.
+A perfect circle (which is not possible in a picture due to the quadrilateral nature of pixels) would have a ratio of 1.
+This is easily shown by inserting the formulae for perimeter and area of a circle in Equation~\ref{eq:circle_ratio}:
+
+\begin{align}
+    \mathit{ratio}_\mathit{circle}  &= \frac{4\times\pi\times(\pi\times r^2)}{(2\times\pi\times r)^2}\nonumber \\
+                                    &= \frac{4\times\pi^2\times r^2}{4\times\pi^2\times r^2} = 1
+\end{align}
+
 Since a higher ratio means more circle-like, the four contours most like a circle is in the four last positions.
 It is assumed that the circles are in these four positions, which they indeed are in all test images in both the easy and hard sequence.
 
