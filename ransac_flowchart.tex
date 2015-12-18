@@ -1,0 +1,38 @@
+%!TEX root = mainfile.tex
+\begin{figure}
+\centering
+\begin{tikzpicture}[node distance=2cm,scale=0.6, every node/.style={transform shape}]
+    \node (start) [startstop] {Start};
+    \node (objectin) [io, below of=start] {Marker in};
+    \node (detectobject) [process, below of=objectin] {Detect keypoints};
+    \node (computeobject) [process, below of=detectobject] {Compute descriptors};
+
+    \node (perimage) [startstop, left of=start, xshift=12cm] {Per image};
+    \node (imgin) [io, below of=perimage] {Image in};
+    \node (detect) [process, below of=imgin] {Detect keypoints};
+    \node (compute) [process, below of=detect] {Compute descriptors};
+    \node (match) [process, below of=compute] {Match descriptors with marker};
+    \node (dist) [process, below of=match] {Calculate minimum distance between two descriptors, use for filtering away very bad matches};
+    \node (homo) [process, below of=dist] {Calculate homography};
+    \node (trans) [process, below of=homo] {Perform perspective transform};
+    \node (extract) [process, below of=trans] {Extract center point using marker corners};
+    \node (stop) [startstop, below of=extract] {Stop};
+
+    \draw[arrow] (start) -- (objectin);
+    \draw[arrow] (objectin) -- (detectobject);
+    \draw[arrow] (detectobject) -- (computeobject);
+    \draw[arrow, dashed] (computeobject) |- node[anchor=north] {Make descriptors available for} (match);
+
+    \draw[arrow] (perimage) -- (imgin);
+    \draw[arrow] (imgin) -- (detect);
+    \draw[arrow] (detect) -- (compute);
+    \draw[arrow] (compute) -- (match);
+    \draw[arrow] (match) -- (dist);
+    \draw[arrow] (dist) -- (homo);
+    \draw[arrow] (homo) -- (trans);
+    \draw[arrow] (trans) -- (extract);
+    \draw[arrow] (extract) -- (stop);
+\end{tikzpicture}
+\caption{Loading of image and finding the corny marker and center.}
+\label{fig:corny_flowchart}
+\end{figure}

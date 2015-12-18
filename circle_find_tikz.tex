@@ -14,7 +14,8 @@
     \node (takered) [process, below of=takefour] {Take most red element as red circle};
     \node (takeopposite) [process, below of=takered, yshift=-.25cm] {Take contour with biggest center-to-center distance to red circle as opposite of red};
     \node (takeothers) [process, below of=takeopposite, yshift=-.25cm] {Take other two, assign based on algorithm};
-    \node (stop) [startstop, below of=takeothers] {Stop};
+    \node (calc) [process, below of=takeothers] {Calculate center point};
+    \node (stop) [startstop, below of=calc] {Stop};
     \draw [arrow] (start) -- (imgin);
     \draw [arrow] (imgin) -- (prepimg);
     \draw [arrow] (prepimg) -- (contproc);
@@ -28,7 +29,8 @@
     \draw [arrow] (takefour) -- (takered);
     \draw [arrow] (takered) -- (takeopposite);
     \draw [arrow] (takeopposite) -- (takeothers);
-    \draw [arrow] (takeothers) -- (stop);
+    \draw [arrow] (takeothers) -- (calc);
+    \draw [arrow] (calc) -- (stop);
 \end{tikzpicture}
 \caption{Loading of image and detection and identification of circles.}
 \label{fig:circles_flowchart}
